@@ -4,11 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Neolithic — AI Safety Tools</title>
-  <meta name="description" content="Neolithic builds automated tools for AI safety research—starting with Auto‑Evals to rapidly design, run, and iterate LLM evals." />
+  <meta name="description" content="Neolithic builds automated tools for AI safety research—starting with Auto-Evals to rapidly design, run, and iterate LLM evals." />
   <meta property="og:title" content="Neolithic — AI Safety Tools" />
-  <meta property="og:description" content="Automated tools for AI safety research—starting with Auto‑Evals." />
+  <meta property="og:description" content="Automated tools for AI safety research—starting with Auto-Evals." />
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#2d2415" />
+  <link rel="icon" type="image/png" href="assets/neolithic_cropped.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -36,8 +37,13 @@
       box-shadow: 0 10px 40px rgba(0,0,0,0.35);
     }
     .brand{display:flex; align-items:center; gap:14px}
-    .logo{width:36px; height:36px; border-radius:10px; background: conic-gradient(from 120deg, #d9c3a3, #a78c60, #d9c3a3);
-      box-shadow: 0 0 0 3px rgba(255,220,140,0.15), 0 10px 30px rgba(190,160,100,0.25)}
+    .logo{
+      width:40px;
+      height:40px;
+      border-radius:8px;
+      object-fit:cover;
+      box-shadow:0 0 0 2px rgba(255,255,255,0.08);
+    }
     h1{font-size: clamp(28px, 5vw, 40px); margin:0; letter-spacing:0.3px; color:#f5ead4}
     .tag{margin-top:6px; color:var(--muted); font-weight:500}
     .hero{margin-top:28px}
@@ -64,7 +70,7 @@
   <main class="wrap">
     <section class="card" role="region" aria-label="Neolithic signup">
       <div class="brand" aria-label="Brand">
-        <div class="logo" aria-hidden="true"></div>
+        <img src="assets/neolithic_cropped.png" alt="Neolithic logo" class="logo">
         <div>
           <h1>Neolithic</h1>
           <div class="tag">Tools to prevent catastrophic AI risk</div>
@@ -73,7 +79,7 @@
 
       <div class="hero">
         <p>
-          We build automated tools for AI safety research—starting with <strong>Auto‑Evals</strong>, a system that makes it fast to
+          We build automated tools for AI safety research—starting with <strong>Auto-Evals</strong>, a system that makes it fast to
           design, run, and iterate on evaluations for model behavior and robustness.
         </p>
       </div>
@@ -87,6 +93,7 @@
         <div id="msgError" class="error" role="alert">Hmm, that didn't work. Try again or email <a href="mailto:hello@neolithic.ai">hello@neolithic.ai</a>.</div>
       </form>
 
+      <div class="legal">By submitting, you agree we can store your email for product updates. You can opt out anytime.</div>
       <footer>
         <span>© <span id="year"></span> Neolithic.</span>
         <span>Contact: <a href="mailto:hello@neolithic.ai">hello@neolithic.ai</a></span>
