@@ -8,47 +8,54 @@
   <meta property="og:title" content="Neolithic — AI Safety Tools" />
   <meta property="og:description" content="Automated tools for AI safety research—starting with Auto‑Evals." />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#0b0b0c" />
+  <meta name="theme-color" content="#2d2415" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg: #0b0b0c; --fg:#e6e6e6; --muted:#9ca3af; --card:#121315; --accent:#6ee7ff; --ring:#2dd4bf;
+      --bg: #18130c;
+      --fg: #eae7e2;
+      --muted: #a89880;
+      --card: rgba(40,32,20,0.75);
+      --accent: #c3a36b;
+      --ring: #e2c98f;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      color:var(--fg); background: radial-gradient(1200px 800px at 70% -10%, #0f1b2a55, transparent 60%),
-               radial-gradient(900px 600px at -10% 80%, #17211655, transparent 60%), var(--bg);
+      color:var(--fg); background:
+        radial-gradient(1000px 800px at 70% -10%, #3e2b1e80, transparent 70%),
+        radial-gradient(900px 700px at -10% 80%, #33271c80, transparent 70%),
+        linear-gradient(180deg, #1d160b, #0f0d08);
     }
     .wrap{min-height:100%; display:grid; place-items:center; padding:48px 20px}
-    .card{max-width:860px; width:100%; background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    .card{max-width:860px; width:100%; background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
       border:1px solid rgba(255,255,255,0.08); border-radius:24px; padding:40px; backdrop-filter: blur(6px);
       box-shadow: 0 10px 40px rgba(0,0,0,0.35);
     }
     .brand{display:flex; align-items:center; gap:14px}
-    .logo{width:36px; height:36px; border-radius:10px; background: conic-gradient(from 120deg, #94f2ff, #a7f3d0, #94f2ff);
-      box-shadow: 0 0 0 3px rgba(148,242,255,0.15), 0 10px 30px rgba(45,212,191,0.25)}
-    h1{font-size: clamp(28px, 5vw, 40px); margin:0; letter-spacing:0.3px}
+    .logo{width:36px; height:36px; border-radius:10px; background: conic-gradient(from 120deg, #d9c3a3, #a78c60, #d9c3a3);
+      box-shadow: 0 0 0 3px rgba(255,220,140,0.15), 0 10px 30px rgba(190,160,100,0.25)}
+    h1{font-size: clamp(28px, 5vw, 40px); margin:0; letter-spacing:0.3px; color:#f5ead4}
     .tag{margin-top:6px; color:var(--muted); font-weight:500}
     .hero{margin-top:28px}
-    .hero p{color:#cbd5e1; font-size: clamp(16px, 2.3vw, 18px); line-height:1.6; margin:0}
+    .hero p{color:#e1d8c8; font-size: clamp(16px, 2.3vw, 18px); line-height:1.6; margin:0}
     .cta{margin-top:28px; display:flex; flex-wrap:wrap; gap:12px}
     input[type=email]{flex:1 1 260px; min-width:240px; background:var(--card); color:var(--fg); border:1px solid rgba(255,255,255,0.14);
       border-radius:14px; padding:14px 16px; outline:none; font-size:16px}
-    input[type=email]:focus{border-color:var(--ring); box-shadow:0 0 0 4px rgba(45,212,191,0.18)}
-    button{padding:14px 18px; border-radius:14px; border:1px solid rgba(255,255,255,0.14); background:#0e7490; color:white;
-      font-weight:600; letter-spacing:0.2px; cursor:pointer}
-    button:hover{filter:brightness(1.05)}
+    input[type=email]:focus{border-color:var(--ring); box-shadow:0 0 0 4px rgba(226,201,143,0.18)}
+    button{padding:14px 18px; border-radius:14px; border:1px solid rgba(255,255,255,0.14); background:#a78c60; color:white;
+      font-weight:600; letter-spacing:0.2px; cursor:pointer; transition: background 0.2s ease}
+    button:hover{background:#c3a36b}
     button:active{transform:translateY(1px)}
     .fine{margin-top:12px; color:var(--muted); font-size:13px}
-    .legal{margin-top:28px; color:#9aa3ad; font-size:12px}
+    .legal{margin-top:28px; color:#a9997a; font-size:12px}
     .success, .error{margin-top:14px; font-size:14px; display:none}
-    .success{color:#34d399}
+    .success{color:#d9c57a}
     .error{color:#f87171}
-    footer{margin-top:26px; color:#7c8794; font-size:12px; display:flex; gap:12px; flex-wrap:wrap}
+    footer{margin-top:26px; color:#a9997a; font-size:12px; display:flex; gap:12px; flex-wrap:wrap}
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
     @media (max-width:520px){.card{padding:28px}}
   </style>
@@ -80,7 +87,6 @@
         <div id="msgError" class="error" role="alert">Hmm, that didn't work. Try again or email <a href="mailto:hello@neolithic.ai">hello@neolithic.ai</a>.</div>
       </form>
 
-      <div class="legal">By submitting, you agree we can store your email for product updates. You can opt out anytime.</div>
       <footer>
         <span>© <span id="year"></span> Neolithic.</span>
         <span>Contact: <a href="mailto:hello@neolithic.ai">hello@neolithic.ai</a></span>
@@ -89,12 +95,7 @@
   </main>
 
   <script>
-    // ---- CONFIGURE THIS LATER ----
-    // If you use Formspree (recommended for quick setup), replace with your endpoint, e.g. 
-    //   const SUBMIT_URL = "https://formspree.io/f/abcdwxyz";
-    // Or use any HTTPS endpoint that accepts JSON { email }
-    const SUBMIT_URL = ""; // leave blank to fall back to mailto
-
+    const SUBMIT_URL = "";
     const form = document.getElementById('interestForm');
     const emailEl = document.getElementById('email');
     const successEl = document.getElementById('msgSuccess');
@@ -114,7 +115,6 @@
 
       const email = emailEl.value.trim();
 
-      // If no endpoint configured, use a mailto fallback
       if (!SUBMIT_URL) {
         window.location.href = `mailto:hello@neolithic.ai?subject=Register%20interest&body=Email:%20${encodeURIComponent(email)}`;
         successEl.style.display = 'block';
