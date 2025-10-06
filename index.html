@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Neolithic — AI Safety Tools</title>
+  <meta name="description" content="Neolithic builds automated tools for AI safety research—starting with Auto‑Evals to rapidly design, run, and iterate LLM evals." />
+  <meta property="og:title" content="Neolithic — AI Safety Tools" />
+  <meta property="og:description" content="Automated tools for AI safety research—starting with Auto‑Evals." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0b0b0c" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b0b0c; --fg:#e6e6e6; --muted:#9ca3af; --card:#121315; --accent:#6ee7ff; --ring:#2dd4bf;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--fg); background: radial-gradient(1200px 800px at 70% -10%, #0f1b2a55, transparent 60%),
+               radial-gradient(900px 600px at -10% 80%, #17211655, transparent 60%), var(--bg);
+    }
+    .wrap{min-height:100%; display:grid; place-items:center; padding:48px 20px}
+    .card{max-width:860px; width:100%; background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.08); border-radius:24px; padding:40px; backdrop-filter: blur(6px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+    }
+    .brand{display:flex; align-items:center; gap:14px}
+    .logo{width:36px; height:36px; border-radius:10px; background: conic-gradient(from 120deg, #94f2ff, #a7f3d0, #94f2ff);
+      box-shadow: 0 0 0 3px rgba(148,242,255,0.15), 0 10px 30px rgba(45,212,191,0.25)}
+    h1{font-size: clamp(28px, 5vw, 40px); margin:0; letter-spacing:0.3px}
+    .tag{margin-top:6px; color:var(--muted); font-weight:500}
+    .hero{margin-top:28px}
+    .hero p{color:#cbd5e1; font-size: clamp(16px, 2.3vw, 18px); line-height:1.6; margin:0}
+    .cta{margin-top:28px; display:flex; flex-wrap:wrap; gap:12px}
+    input[type=email]{flex:1 1 260px; min-width:240px; background:var(--card); color:var(--fg); border:1px solid rgba(255,255,255,0.14);
+      border-radius:14px; padding:14px 16px; outline:none; font-size:16px}
+    input[type=email]:focus{border-color:var(--ring); box-shadow:0 0 0 4px rgba(45,212,191,0.18)}
+    button{padding:14px 18px; border-radius:14px; border:1px solid rgba(255,255,255,0.14); background:#0e7490; color:white;
+      font-weight:600; letter-spacing:0.2px; cursor:pointer}
+    button:hover{filter:brightness(1.05)}
+    button:active{transform:translateY(1px)}
+    .fine{margin-top:12px; color:var(--muted); font-size:13px}
+    .legal{margin-top:28px; color:#9aa3ad; font-size:12px}
+    .success, .error{margin-top:14px; font-size:14px; display:none}
+    .success{color:#34d399}
+    .error{color:#f87171}
+    footer{margin-top:26px; color:#7c8794; font-size:12px; display:flex; gap:12px; flex-wrap:wrap}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media (max-width:520px){.card{padding:28px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card" role="region" aria-label="Neolithic signup">
+      <div class="brand" aria-label="Brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Neolithic</h1>
+          <div class="tag">Tools to prevent catastrophic AI risk</div>
+        </div>
+      </div>
+
+      <div class="hero">
+        <p>
+          We build automated tools for AI safety research—starting with <strong>Auto‑Evals</strong>, a system that makes it fast to
+          design, run, and iterate on evaluations for model behavior and robustness.
+        </p>
+      </div>
+
+      <form id="interestForm" class="cta" novalidate>
+        <label class="sr-only" for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="your@email.com" required aria-required="true" />
+        <button id="submitBtn" type="submit" aria-label="Register interest">Register interest</button>
+        <div class="fine">No spam. One update when we launch, and maybe one preview invite.</div>
+        <div id="msgSuccess" class="success" role="status">Thanks—you're on the list. We'll be in touch.</div>
+        <div id="msgError" class="error" role="alert">Hmm, that didn't work. Try again or email <a href="mailto:hello@neolithic.ai">hello@neolithic.ai</a>.</div>
+      </form>
+
+      <div class="legal">By submitting, you agree we can store your email for product updates. You can opt out anytime.</div>
+      <footer>
+        <span>© <span id="year"></span> Neolithic.</span>
+        <span>Contact: <a href="mailto:hello@neolithic.ai">hello@neolithic.ai</a></span>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    // ---- CONFIGURE THIS LATER ----
+    // If you use Formspree (recommended for quick setup), replace with your endpoint, e.g. 
+    //   const SUBMIT_URL = "https://formspree.io/f/abcdwxyz";
+    // Or use any HTTPS endpoint that accepts JSON { email }
+    const SUBMIT_URL = ""; // leave blank to fall back to mailto
+
+    const form = document.getElementById('interestForm');
+    const emailEl = document.getElementById('email');
+    const successEl = document.getElementById('msgSuccess');
+    const errorEl = document.getElementById('msgError');
+    const yearEl = document.getElementById('year');
+    yearEl.textContent = new Date().getFullYear();
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      successEl.style.display = 'none';
+      errorEl.style.display = 'none';
+
+      if (!emailEl.checkValidity()) {
+        emailEl.reportValidity();
+        return;
+      }
+
+      const email = emailEl.value.trim();
+
+      // If no endpoint configured, use a mailto fallback
+      if (!SUBMIT_URL) {
+        window.location.href = `mailto:hello@neolithic.ai?subject=Register%20interest&body=Email:%20${encodeURIComponent(email)}`;
+        successEl.style.display = 'block';
+        form.reset();
+        return;
+      }
+
+      try {
+        const res = await fetch(SUBMIT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        if (res.ok) {
+          successEl.style.display = 'block';
+          form.reset();
+        } else {
+          throw new Error('Bad response');
+        }
+      } catch (err) {
+        console.error(err);
+        errorEl.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
