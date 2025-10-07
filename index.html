@@ -67,7 +67,7 @@
     }
     .simple-form .row{display:grid; gap:12px; grid-template-columns:1fr 1fr; grid-column:1 / -1}
     @media (max-width:600px){.simple-form .row{grid-template-columns:1fr}}
-    .simple-form .check{display:flex; align-items:center; gap:10px; color:#cbbfa8; font-size:14px}
+    .simple-form .check{display:flex; align-items:center; gap:10px; color:#cbbfa8; font-size:16px}
     .simple-form .message-field{grid-column:2 / 3}
     @media (max-width:600px){.simple-form .message-field{grid-column:1 / -1}}
     .simple-form .actions{display:flex; justify-content:flex-start}
@@ -107,14 +107,18 @@
 
       <div class="hero">
         <p>
-          Neolithic is building an agentic research platform to accelerate the development of AI safety evals, assisting with literature review, task design, code generation, and log analysis.
+          Neolithic is building an agentic research platform to accelerate the development of AI safety evals, assisting with literature review, task design, code generation, and transcript analysis.
           <br><br>
-          Submit below if you'd like to be notified when we launch or if you'd like to get in touch.
+          Join the list or contact us below.
         </p>
       </div>
 
       <!-- Unified simple form -->
       <form id="unifiedForm" class="cta simple-form" novalidate>
+        <div class="check">
+          <input id="notify" name="notify" type="checkbox" />
+          <label for="notify">Notify me when the platform is live</label>
+        </div>
         <div class="row">
           <div>
             <label for="name">Name</label>
@@ -124,10 +128,6 @@
             <label for="email">Email</label>
             <input id="email" name="email" type="email" placeholder="your@email.com" required aria-required="true" />
           </div>
-        </div>
-        <div class="check">
-          <input id="notify" name="notify" type="checkbox" />
-          <label for="notify">Notify me when this product is available</label>
         </div>
         <div class="message-field">
           <label for="message">Message (optional)</label>
