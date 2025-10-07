@@ -45,10 +45,20 @@
     .tag{margin-top:6px; color:var(--muted); font-weight:500}
     .hero{margin-top:28px}
     .hero p{color:#e1d8c8; font-size: clamp(16px, 2.3vw, 18px); line-height:1.6; margin:0}
-    .cta{margin-top:28px; display:flex; flex-wrap:wrap; gap:12px}
-    input[type=email]{flex:1 1 260px; min-width:240px; background:var(--card); color:var(--fg); border:1px solid rgba(255,255,255,0.14);
-      border-radius:14px; padding:14px 16px; outline:none; font-size:16px}
-    input[type=email]:focus{border-color:var(--ring); box-shadow:0 0 0 4px rgba(226,201,143,0.18)}
+    .cta{margin-top:28px}
+    /* Simple unified form styles */
+    .simple-form{display:grid; gap:12px}
+    .simple-form label{font-size:13px; color:#cbbfa8}
+    .simple-form input[type=text], .simple-form input[type=email], .simple-form textarea{
+      background:var(--card); color:var(--fg); border:1px solid rgba(255,255,255,0.14);
+      border-radius:14px; padding:14px 16px; outline:none; font-size:16px
+    }
+    .simple-form input[type=text]:focus, .simple-form input[type=email]:focus, .simple-form textarea:focus{
+      border-color:var(--ring); box-shadow:0 0 0 4px rgba(226,201,143,0.18)
+    }
+    .simple-form .row{display:grid; gap:12px; grid-template-columns:1fr 1fr}
+    @media (max-width:600px){.simple-form .row{grid-template-columns:1fr}}
+    .simple-form .check{display:flex; align-items:center; gap:10px; color:#cbbfa8; font-size:14px}
     button{padding:14px 18px; border-radius:14px; border:1px solid rgba(255,255,255,0.14); background:#a78c60; color:white;
       font-weight:600; letter-spacing:0.2px; cursor:pointer; transition: background 0.2s ease}
     button:hover{background:#c3a36b}
@@ -61,17 +71,6 @@
     footer{margin-top:26px; color:#a9997a; font-size:12px; display:flex; gap:12px; flex-wrap:wrap}
     .btn{padding:10px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.14); background:#a78c60; color:white; font-weight:600; letter-spacing:0.2px; cursor:pointer}
     .btn:hover{background:#c3a36b}
-    .modal{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.5); z-index:50}
-    .modal.open{display:flex}
-    .modal-card{width:min(640px, 92vw); background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.12); border-radius:16px; padding:20px 20px}
-    .modal-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px}
-    .modal-title{font-size:18px; font-weight:600; color:#f5ead4}
-    .modal-close{background:transparent; border:0; color:#eae7e2; font-size:22px; cursor:pointer}
-    .modal-body{display:grid; gap:10px}
-    .modal-body label{font-size:13px; color:#cbbfa8}
-    .modal-body input, .modal-body textarea{background:var(--card); color:var(--fg); border:1px solid rgba(255,255,255,0.14); border-radius:10px; padding:10px 12px; outline:none; font-size:14px}
-    .modal-body input:focus, .modal-body textarea:focus{border-color:var(--ring); box-shadow:0 0 0 4px rgba(226,201,143,0.18)}
-    .modal-actions{display:flex; gap:10px; justify-content:flex-end; margin-top:4px}
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
     @media (max-width:520px){.card{padding:28px}}
   </style>
@@ -83,7 +82,7 @@
         <img src="assets/neolithic_with_circle_no-bg.png" alt="Neolithic logo" class="logo">
         <div>
           <h1>Neolithic</h1>
-          <div class="tag">Tools to accelerate AI safety research</div>
+          <div class="tag">Automating AI Safety Research</div>
         </div>
       </div>
 
@@ -95,144 +94,74 @@
         </p>
       </div>
 
-      <form id="interestForm" class="cta" novalidate>
-        <label class="sr-only" for="email">Email</label>
-        <input id="email" name="email" type="email" placeholder="your@email.com" required aria-required="true" />
-        <button id="submitBtn" type="submit" aria-label="Register interest">Register interest</button>
-        <div class="fine">No spam. One update when we launch, and maybe one preview invite.</div>
-        <div id="msgSuccess" class="success" role="status">Thanks—you're on the list. We'll be in touch.</div>
-        <div id="msgError" class="error" role="alert">Hmm, that didn't work. Try again or email <a href="mailto:leo.tzu.mr@gmail.com">leo.tzu.mr@gmail.com</a>.</div>
+      <!-- Unified simple form -->
+      <form id="unifiedForm" class="cta simple-form" novalidate>
+        <div class="row">
+          <div>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="Your name" required aria-required="true" />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="your@email.com" required aria-required="true" />
+          </div>
+        </div>
+        <div class="check">
+          <input id="notify" name="notify" type="checkbox" />
+          <label for="notify">Notify me when this product is available</label>
+        </div>
+        <div>
+          <label for="message">Message (optional)</label>
+          <textarea id="message" name="message" placeholder="Write a message..." rows="6"></textarea>
+        </div>
+        <div id="msgSuccess" class="success" role="status">Thanks—got it. We’ll be in touch.</div>
+        <div id="msgError" class="error" role="alert">Hmm, that didn't work. Please try again.</div>
+        <div style="display:flex; justify-content:flex-end">
+          <button id="submitBtn" type="submit" aria-label="Submit">Submit</button>
+        </div>
       </form>
 
       <footer>
         <span>© <span id="year"></span> Neolithic</span>
-        <button id="contactBtn" type="button" class="btn" aria-haspopup="dialog" aria-controls="contactModal">Contact</button>
       </footer>
-      
-      <!-- Contact Modal -->
-      <div id="contactModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
-        <div class="modal-card">
-          <div class="modal-header">
-            <div id="contactTitle" class="modal-title">Contact</div>
-            <button id="modalClose" class="modal-close" aria-label="Close contact form">×</button>
-          </div>
-          <form id="contactForm" class="modal-body">
-            <div>
-              <label for="contactName">Name</label>
-              <input id="contactName" name="name" type="text" placeholder="Your name" required aria-required="true" />
-            </div>
-            <div>
-              <label for="contactEmail">Email</label>
-              <input id="contactEmail" name="email" type="email" placeholder="your@email.com" required aria-required="true" />
-            </div>
-            <div>
-              <label for="contactMessage">Message</label>
-              <textarea id="contactMessage" name="message" placeholder="What's up?" rows="5" required aria-required="true"></textarea>
-            </div>
-            <div id="contactSuccess" class="success" role="status" style="display:none">Thanks—your message has been sent.</div>
-            <div id="contactError" class="error" role="alert" style="display:none">Hmm, that didn't work. Please try again.</div>
-            <div class="modal-actions">
-              <button id="contactCancel" type="button" class="btn" aria-label="Cancel and close">Cancel</button>
-              <button id="contactSend" type="submit" class="btn" aria-label="Send message">Send</button>
-            </div>
-          </form>
-        </div>
-      </div>
     </section>
   </main>
 
   <script>
-    const SUBMIT_URL = "";
-    const CONTACT_URL = ""; // optional: set to backend endpoint to receive contact messages
-    const form = document.getElementById('interestForm');
+    const SUBMIT_URL = ""; // optional: backend endpoint to receive unified form
+    const form = document.getElementById('unifiedForm');
+    const nameEl = document.getElementById('name');
     const emailEl = document.getElementById('email');
+    const notifyEl = document.getElementById('notify');
+    const messageEl = document.getElementById('message');
     const successEl = document.getElementById('msgSuccess');
     const errorEl = document.getElementById('msgError');
     const yearEl = document.getElementById('year');
     yearEl.textContent = new Date().getFullYear();
-
-    // Contact modal behavior
-    const contactBtn = document.getElementById('contactBtn');
-    const contactModal = document.getElementById('contactModal');
-    const modalClose = document.getElementById('modalClose');
-    const contactCancel = document.getElementById('contactCancel');
-    const contactForm = document.getElementById('contactForm');
-    const contactSuccess = document.getElementById('contactSuccess');
-    const contactError = document.getElementById('contactError');
-
-    function openContact(){
-      contactSuccess.style.display = 'none';
-      contactError.style.display = 'none';
-      contactForm.reset();
-      contactModal.classList.add('open');
-      // focus first field for accessibility
-      const nameEl = document.getElementById('contactName');
-      if (nameEl) nameEl.focus();
-    }
-    function closeContact(){
-      contactModal.classList.remove('open');
-      contactBtn.focus();
-    }
-    contactBtn.addEventListener('click', openContact);
-    modalClose.addEventListener('click', closeContact);
-    contactCancel.addEventListener('click', closeContact);
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && contactModal.classList.contains('open')) closeContact();
-    });
-
-    contactForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      contactSuccess.style.display = 'none';
-      contactError.style.display = 'none';
-
-      const name = document.getElementById('contactName').value.trim();
-      const email = document.getElementById('contactEmail').value.trim();
-      const message = document.getElementById('contactMessage').value.trim();
-
-      if (!name || !email || !message) {
-        contactError.textContent = 'Please complete all fields.';
-        contactError.style.display = 'block';
-        return;
-      }
-
-      if (!CONTACT_URL){
-        contactError.textContent = 'Message sending is not configured yet.';
-        contactError.style.display = 'block';
-        return;
-      }
-
-      try{
-        const res = await fetch(CONTACT_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, message })
-        });
-        if (res.ok){
-          contactSuccess.style.display = 'block';
-          contactForm.reset();
-        } else {
-          throw new Error('Bad response');
-        }
-      } catch (err){
-        console.error(err);
-        contactError.style.display = 'block';
-      }
-    });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       successEl.style.display = 'none';
       errorEl.style.display = 'none';
 
-      if (!emailEl.checkValidity()) {
+      if (!nameEl.checkValidity() || !emailEl.checkValidity()) {
+        nameEl.reportValidity();
         emailEl.reportValidity();
         return;
       }
 
-      const email = emailEl.value.trim();
+      const payload = {
+        name: nameEl.value.trim(),
+        email: emailEl.value.trim(),
+        notify: !!notifyEl.checked,
+        message: messageEl.value.trim()
+      };
 
       if (!SUBMIT_URL) {
-        window.location.href = `mailto:hello@neolithic.ai?subject=Register%20interest&body=Email:%20${encodeURIComponent(email)}`;
+        // Fallback: open mail client prefilled (does not display email on page)
+        const subject = encodeURIComponent('Website inquiry / notify');
+        const body = encodeURIComponent(`Name: ${payload.name}\nEmail: ${payload.email}\nNotify: ${payload.notify ? 'Yes' : 'No'}\n\n${payload.message}`);
+        window.location.href = `mailto:hello@neolithic.ai?subject=${subject}&body=${body}`;
         successEl.style.display = 'block';
         form.reset();
         return;
@@ -242,7 +171,7 @@
         const res = await fetch(SUBMIT_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email })
+          body: JSON.stringify(payload)
         });
         if (res.ok) {
           successEl.style.display = 'block';
