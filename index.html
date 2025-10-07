@@ -39,7 +39,7 @@
       height:120px;
       border-radius:8px;
       object-fit:cover;
-      box-shadow:0 0 0 2px rgba(255,255,255,0.08);
+      box-shadow:none;
     }
     h1{font-size: clamp(42px, 7.5vw, 60px); margin:0; letter-spacing:0.3px; color:#f5ead4; font-family: "Average", serif; font-weight: 700;}
     .tag{margin-top:6px; color:var(--muted); font-weight:500}
@@ -47,7 +47,7 @@
     .hero p{color:#e1d8c8; font-size: clamp(16px, 2.3vw, 18px); line-height:1.6; margin:0}
     .cta{margin-top:28px}
     /* Simple unified form styles */
-    .simple-form{display:grid; gap:12px; max-width:640px}
+    .simple-form{display:grid; gap:12px; max-width:640px; grid-template-columns:1fr 1fr}
     .simple-form label{display:block; font-size:13px; color:#cbbfa8}
     .simple-form input[type=text], .simple-form input[type=email], .simple-form textarea{
       background:var(--card); color:var(--fg); border:1px solid rgba(255,255,255,0.14);
@@ -56,9 +56,11 @@
     .simple-form input[type=text]:focus, .simple-form input[type=email]:focus, .simple-form textarea:focus{
       border-color:var(--ring); box-shadow:0 0 0 4px rgba(226,201,143,0.18)
     }
-    .simple-form .row{display:grid; gap:12px; grid-template-columns:1fr 1fr}
+    .simple-form .row{display:grid; gap:12px; grid-template-columns:1fr 1fr; grid-column:1 / -1}
     @media (max-width:600px){.simple-form .row{grid-template-columns:1fr}}
     .simple-form .check{display:flex; align-items:center; gap:10px; color:#cbbfa8; font-size:14px}
+    .simple-form .message-field{grid-column:2 / 3}
+    @media (max-width:600px){.simple-form .message-field{grid-column:1 / -1}}
     .simple-form .actions{display:flex; justify-content:flex-start}
     button{padding:14px 18px; border-radius:14px; border:1px solid rgba(255,255,255,0.14); background:#a78c60; color:white;
       font-weight:600; letter-spacing:0.2px; cursor:pointer; transition: background 0.2s ease}
@@ -111,9 +113,9 @@
           <input id="notify" name="notify" type="checkbox" />
           <label for="notify">Notify me when this product is available</label>
         </div>
-        <div>
+        <div class="message-field">
           <label for="message">Message (optional)</label>
-          <textarea id="message" name="message" placeholder="Write a message..." rows="6"></textarea>
+          <textarea id="message" name="message" placeholder="Write a message..." rows="3"></textarea>
         </div>
         <div id="msgSuccess" class="success" role="status">Thanks—got it. We’ll be in touch.</div>
         <div id="msgError" class="error" role="alert">Hmm, that didn't work. Please try again.</div>
