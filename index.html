@@ -153,7 +153,7 @@
   </main>
 
   <script>
-    const SUBMIT_URL = ""; // optional: backend endpoint to receive unified form
+    const SUBMIT_URL = "https://formspree.io/f/xpwnqjzw"; // Formspree endpoint for leo.tzu.mr@gmail.com
     const form = document.getElementById('unifiedForm');
     const nameEl = document.getElementById('name');
     const emailEl = document.getElementById('email');
@@ -182,15 +182,7 @@
         message: messageEl.value.trim()
       };
 
-      if (!SUBMIT_URL) {
-        // Fallback: open mail client prefilled (does not display email on page)
-        const subject = encodeURIComponent('Website inquiry / notify');
-        const body = encodeURIComponent(`Name: ${payload.name}\nEmail: ${payload.email}\nNotify: ${payload.notify ? 'Yes' : 'No'}\n\n${payload.message}`);
-        window.location.href = `mailto:hello@neolithic.ai?subject=${subject}&body=${body}`;
-        successEl.style.display = 'block';
-        form.reset();
-        return;
-      }
+      // Always use Formspree to send email automatically
 
       try {
         const res = await fetch(SUBMIT_URL, {
