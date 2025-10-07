@@ -26,11 +26,11 @@
     html,body{height:100%}
     body{
       margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      color:var(--fg); background: url('assets/cave_wall_dark.png') center/cover no-repeat;
+      color:var(--fg); background: url('assets/cave_wall_orange_2.png') center/cover no-repeat;
     }
     .wrap{min-height:100%; display:grid; place-items:center; padding:48px 20px}
     .card{max-width:860px; width:100%; background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      border:3px solid #8B4513; border-radius:24px; padding:40px; backdrop-filter: blur(6px);
+      border:1px solid rgba(255,255,255,0.08); border-radius:24px; padding:40px; backdrop-filter: blur(6px);
       box-shadow: 0 10px 40px rgba(0,0,0,0.35);
     }
     .brand{display:flex; align-items:center; gap:14px}
@@ -59,6 +59,19 @@
     .success{color:#d9c57a}
     .error{color:#f87171}
     footer{margin-top:26px; color:#a9997a; font-size:12px; display:flex; gap:12px; flex-wrap:wrap}
+    .btn{padding:10px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.14); background:#a78c60; color:white; font-weight:600; letter-spacing:0.2px; cursor:pointer}
+    .btn:hover{background:#c3a36b}
+    .modal{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.5); z-index:50}
+    .modal.open{display:flex}
+    .modal-card{width:min(640px, 92vw); background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.12); border-radius:16px; padding:20px 20px}
+    .modal-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px}
+    .modal-title{font-size:18px; font-weight:600; color:#f5ead4}
+    .modal-close{background:transparent; border:0; color:#eae7e2; font-size:22px; cursor:pointer}
+    .modal-body{display:grid; gap:10px}
+    .modal-body label{font-size:13px; color:#cbbfa8}
+    .modal-body input, .modal-body textarea{background:var(--card); color:var(--fg); border:1px solid rgba(255,255,255,0.14); border-radius:10px; padding:10px 12px; outline:none; font-size:14px}
+    .modal-body input:focus, .modal-body textarea:focus{border-color:var(--ring); box-shadow:0 0 0 4px rgba(226,201,143,0.18)}
+    .modal-actions{display:flex; gap:10px; justify-content:flex-end; margin-top:4px}
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
     @media (max-width:520px){.card{padding:28px}}
   </style>
@@ -93,19 +106,118 @@
 
       <footer>
         <span>© <span id="year"></span> Neolithic</span>
-        <span>Contact: <a href="mailto:leo.tzu.mr@gmail.com">leo.tzu.mr@gmail.com</a></span>
+        <button id="contactBtn" type="button" class="btn" aria-haspopup="dialog" aria-controls="contactModal">Contact</button>
       </footer>
+      
+      <!-- Contact Modal -->
+      <div id="contactModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+        <div class="modal-card">
+          <div class="modal-header">
+            <div id="contactTitle" class="modal-title">Contact</div>
+            <button id="modalClose" class="modal-close" aria-label="Close contact form">×</button>
+          </div>
+          <form id="contactForm" class="modal-body">
+            <div>
+              <label for="contactName">Name</label>
+              <input id="contactName" name="name" type="text" placeholder="Your name" required aria-required="true" />
+            </div>
+            <div>
+              <label for="contactEmail">Email</label>
+              <input id="contactEmail" name="email" type="email" placeholder="your@email.com" required aria-required="true" />
+            </div>
+            <div>
+              <label for="contactMessage">Message</label>
+              <textarea id="contactMessage" name="message" placeholder="What's up?" rows="5" required aria-required="true"></textarea>
+            </div>
+            <div id="contactSuccess" class="success" role="status" style="display:none">Thanks—your message has been sent.</div>
+            <div id="contactError" class="error" role="alert" style="display:none">Hmm, that didn't work. Please try again.</div>
+            <div class="modal-actions">
+              <button id="contactCancel" type="button" class="btn" aria-label="Cancel and close">Cancel</button>
+              <button id="contactSend" type="submit" class="btn" aria-label="Send message">Send</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </section>
   </main>
 
   <script>
     const SUBMIT_URL = "";
+    const CONTACT_URL = ""; // optional: set to backend endpoint to receive contact messages
     const form = document.getElementById('interestForm');
     const emailEl = document.getElementById('email');
     const successEl = document.getElementById('msgSuccess');
     const errorEl = document.getElementById('msgError');
     const yearEl = document.getElementById('year');
     yearEl.textContent = new Date().getFullYear();
+
+    // Contact modal behavior
+    const contactBtn = document.getElementById('contactBtn');
+    const contactModal = document.getElementById('contactModal');
+    const modalClose = document.getElementById('modalClose');
+    const contactCancel = document.getElementById('contactCancel');
+    const contactForm = document.getElementById('contactForm');
+    const contactSuccess = document.getElementById('contactSuccess');
+    const contactError = document.getElementById('contactError');
+
+    function openContact(){
+      contactSuccess.style.display = 'none';
+      contactError.style.display = 'none';
+      contactForm.reset();
+      contactModal.classList.add('open');
+      // focus first field for accessibility
+      const nameEl = document.getElementById('contactName');
+      if (nameEl) nameEl.focus();
+    }
+    function closeContact(){
+      contactModal.classList.remove('open');
+      contactBtn.focus();
+    }
+    contactBtn.addEventListener('click', openContact);
+    modalClose.addEventListener('click', closeContact);
+    contactCancel.addEventListener('click', closeContact);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && contactModal.classList.contains('open')) closeContact();
+    });
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      contactSuccess.style.display = 'none';
+      contactError.style.display = 'none';
+
+      const name = document.getElementById('contactName').value.trim();
+      const email = document.getElementById('contactEmail').value.trim();
+      const message = document.getElementById('contactMessage').value.trim();
+
+      if (!name || !email || !message) {
+        contactError.textContent = 'Please complete all fields.';
+        contactError.style.display = 'block';
+        return;
+      }
+
+      if (!CONTACT_URL){
+        contactError.textContent = 'Message sending is not configured yet.';
+        contactError.style.display = 'block';
+        return;
+      }
+
+      try{
+        const res = await fetch(CONTACT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, message })
+        });
+        if (res.ok){
+          contactSuccess.style.display = 'block';
+          contactForm.reset();
+        } else {
+          throw new Error('Bad response');
+        }
+      } catch (err){
+        console.error(err);
+        contactError.style.display = 'block';
+      }
+    });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
