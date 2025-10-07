@@ -27,10 +27,10 @@
     body{
       margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
       color:var(--fg); background:
-        radial-gradient(1100px 850px at 78% -12%, rgba(160, 90, 20, 0.30), transparent 70%),
-        radial-gradient(950px 760px at -12% 82%, rgba(110, 60, 20, 0.32), transparent 70%),
-        linear-gradient(180deg, #1f1307 0%, #2a1809 38%, #0f0905 100%);
-      background-color:#1a0f05; /* solid fallback */
+        radial-gradient(1100px 850px at 78% -12%, rgba(190, 110, 30, 0.34), transparent 70%),
+        radial-gradient(950px 760px at -12% 82%, rgba(130, 70, 25, 0.34), transparent 70%),
+        linear-gradient(180deg, #1f1307 0%, #321c0b 38%, #0f0905 100%);
+      background-color:#160d06; /* solid fallback */
       min-height:100vh;
     }
     .wrap{min-height:100%; display:grid; place-items:center; padding:48px 20px}
@@ -55,9 +55,13 @@
     .simple-form{display:grid; gap:12px; max-width:640px; grid-template-columns:1fr 1fr}
     .simple-form label{display:block; font-size:13px; color:#cbbfa8}
     .simple-form input[type=text], .simple-form input[type=email], .simple-form textarea{
+      width:100%;
       background:var(--card); color:var(--fg); border:1px solid rgba(255,255,255,0.14);
       border-radius:10px; padding:12px 14px; outline:none; font-size:16px
     }
+    .simple-form input[type=text]::placeholder,
+    .simple-form input[type=email]::placeholder,
+    .simple-form textarea::placeholder{font-size:14px; color:#b7a98f}
     .simple-form input[type=text]:focus, .simple-form input[type=email]:focus, .simple-form textarea:focus{
       border-color:var(--ring); box-shadow:0 0 0 4px rgba(226,201,143,0.18)
     }
