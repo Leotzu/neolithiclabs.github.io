@@ -61,7 +61,12 @@
     }
     .simple-form input[type=text]::placeholder,
     .simple-form input[type=email]::placeholder,
-    .simple-form textarea::placeholder{font-size:14px; color:#b7a98f}
+    .simple-form textarea::placeholder{
+      font-size:14px; 
+      color:#b7a98f; 
+      font-family:inherit;
+      opacity:1;
+    }
     .simple-form input[type=text]:focus, .simple-form input[type=email]:focus, .simple-form textarea:focus{
       border-color:var(--ring); box-shadow:0 0 0 4px rgba(226,201,143,0.18)
     }
