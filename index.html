@@ -185,10 +185,17 @@
       // Always use Formspree to send email automatically
 
       try {
+        // Format data for Formspree
+        const formData = new FormData();
+        formData.append('name', payload.name);
+        formData.append('email', payload.email);
+        formData.append('notify', payload.notify ? 'Yes' : 'No');
+        formData.append('message', payload.message);
+        formData.append('_subject', 'Neolithic Website Contact');
+
         const res = await fetch(SUBMIT_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          body: formData
         });
         if (res.ok) {
           successEl.style.display = 'block';
