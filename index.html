@@ -31,6 +31,8 @@
         radial-gradient(950px 760px at -12% 82%, rgba(130, 70, 25, 0.34), transparent 70%),
         linear-gradient(180deg, #1f1307 0%, #321c0b 38%, #0f0905 100%);
       background-color:#160d06; /* solid fallback */
+      background-attachment: fixed;
+      background-size: cover;
       min-height:100vh;
     }
     .wrap{min-height:100%; display:grid; place-items:center; padding:48px 20px}
@@ -95,7 +97,8 @@
     @media (max-width:600px){
       .simple-form{grid-template-columns:1fr}
       .logo{width:90px; height:90px}
-      .wrap{padding:36px 16px}
+      .wrap{padding:36px 12px}
+      .card{margin:0 auto; width:calc(100% - 4px)}
       .brand{gap:10px}
     }
   </style>
